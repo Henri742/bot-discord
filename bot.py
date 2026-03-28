@@ -1,21 +1,20 @@
 import discord
 from discord import app_commands
-import openai
-import time
-
-# -------------------------------
-# VARIÁVEIS DO AMBIENTE
-# -------------------------------
 import os
+import time
+import openai
 
+# -------------------------------
+# PEGANDO VARIÁVEIS DO AMBIENTE
+# -------------------------------
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not DISCORD_TOKEN:
-    raise ValueError("❌ DISCORD_TOKEN não encontrado! Defina no Railway → Settings → Environment Variables")
+    raise ValueError("❌ DISCORD_TOKEN não encontrado! Defina no Railway: Settings → Environment Variables")
 
 if not OPENAI_API_KEY:
-    raise ValueError("❌ OPENAI_API_KEY não encontrado! Defina no Railway → Settings → Environment Variables")
+    raise ValueError("❌ OPENAI_API_KEY não encontrado! Defina no Railway: Settings → Environment Variables")
 
 openai.api_key = OPENAI_API_KEY
 
@@ -36,19 +35,15 @@ cooldown = {}
 # FUNÇÃO DE PERGUNTA PARA IA
 # -------------------------------
 def perguntar_ia(pergunta, historico):
-    mensagens = [{"role": m["role"], "content": m["content"]} for m in historico]
-    mensagens.append({"role": "user", "content": pergunta})
-
+    mensagens = historico + [{"role": "user", "content": pergunta}]
     try:
-        resposta = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=mensagens,
-            temperature=0.7,
-            max_tokens=500
+        resposta = openai.chat.completions.create(
+            model="gpt-3.5-turbo",  # modelo gratuito disponível
+            messages=mensagens
         )
         return resposta.choices[0].message.content
     except Exception as e:
-        print("Erro ao chamar OpenAI:", e)
+        print("❌ Erro na OpenAI:", e)
         return "❌ A IA está ocupada no momento. Tente novamente mais tarde."
 
 # -------------------------------
