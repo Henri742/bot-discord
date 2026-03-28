@@ -1,0 +1,8 @@
+cor = 'azul'
+print('A cor é vermelha' if cor == 'vermelha' else 'A cor não é vermelha é: ', cor)
+
+cor = 'azul'
+if cor == vermelho:
+    print ('Cor é igual a vermelho')
+else:
+    print('A cor é igual a', cor)

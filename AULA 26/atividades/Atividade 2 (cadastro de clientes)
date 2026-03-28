@@ -1,0 +1,91 @@
+print('Quantidade de clientes: ')
+n = int(input())
+
+somaPesoMulheres = 0.0
+somaAlturaHomens = 0.0
+contMulheres = 0
+contHomens = 0
+maiorAltura = 0.0
+menorPeso = 9999.0
+
+for i in range(1, n+1):
+    print(f'Nome do cliente {i}: ')
+    while True:
+        nome = str(input('Nome: '))
+        if nome.isalpha():
+            break
+        else:
+            print('Nome inválido. Digite apenas letras.')
+
+    while True:
+        idade = (input('Idade:'))
+        if idade > 0 and idade.isdigit():
+            break
+        else:
+            print('Idade inválida. Digite um número inteiro positivo.')
+
+    sexo = str(input('Sexo (M - masculino - F - feminino - O - Prefiro não declarar): ')).upper()
+
+    while True:
+        peso = float(input(f'Peso: '))
+        peso = round(peso) 
+        if peso > 0:
+            break
+        else: 
+            print('Peso inválido. Digite um número positivo.')
+
+    altura = float(input('Altura: '))
+
+    while True:
+        cor_olhos = int(input('Cor dos olhos (1 - Castanhos - 2 - Azuis - 3 - Verdes - 4 - Pretos): '))
+        if cor_olhos in [1, 2, 3, 4]:
+            break
+        else:
+            print('Opção inválida. Digite um número entre 1 e 4.')
+
+    print(f'Cliente {i} cadastrado com sucesso!')
+    print('Nome:', nome)
+    print('Idade:', idade)
+    print('Sexo:', sexo)
+    print('Peso:', peso)
+    print('Altura:', altura)
+    print('Cor dos olhos:', cor_olhos)
+print('Relatório final: ')
+
+if sexo == 'F' and cor_olhos == 2 and peso < 60:
+        print('Cliente do sexo feminino, olhos azuis e peso inferior a 60 kg:', nome)
+elif idade > 70:
+        print('Muito velha')
+
+if sexo == 'M' and altura > 1.75 and peso >= 70 and peso <= 80:
+        print('Cliente do sexo masculino, altura superior a 1.75 m e peso entre 70 kg e 80 kg:', nome)
+
+elif sexo == 'M' and idade < 18:
+    print('Menor de idade')
+
+if sexo == 'M':
+        somaAlturaHomens += altura
+        contHomens += 1
+
+if sexo == 'F':
+        somaPesoMulheres += peso
+        contMulheres += 1
+       
+if maiorAltura < altura:
+        maiorAltura = altura
+
+if menorPeso > peso:
+        menorPeso = peso
+
+if contHomens > 0:
+        mediaAlturaHomens = somaAlturaHomens / contHomens
+        print('Média de altura dos homens:', mediaAlturaHomens)
+
+if contMulheres > 0:
+        mediaPesoMulheres = somaPesoMulheres / contMulheres
+        print('Média de peso das mulheres:', mediaPesoMulheres)
+    
+print('Maior altura entre os clientes:', maiorAltura)   
+print('Menor peso entre os clientes:', menorPeso)
+
+

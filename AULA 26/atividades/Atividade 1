@@ -1,0 +1,4 @@
+print('Escreva o ultimo número fornecido pela questão')
+numero = int(input())
+proximo = numero * 2 - 1
+print('O proximo número após', numero, 'é:', proximo)
